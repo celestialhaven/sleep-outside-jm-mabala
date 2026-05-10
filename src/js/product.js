@@ -12,17 +12,13 @@ async function addToCartHandler(e) {
 
   console.log("BUTTON ID:", id);
 
-  const product =
-    await dataSource.findProductById(id);
+  const product = await dataSource.findProductById(id);
 
   console.log("FOUND PRODUCT:", product);
 
   addProductToCart(product);
 
-  console.log(
-    "LOCAL STORAGE:",
-    localStorage.getItem("so-cart")
-  );
+  console.log("LOCAL STORAGE:", localStorage.getItem("so-cart"));
 }
 
 // add listener to Add to Cart button
