@@ -14,44 +14,114 @@ export default class ProductDetails {
   }
 
   renderProductDetails(product) {
-    const productSection =
-      document.querySelector(
-        ".product-detail"
-      );
+  const productSection =
+    document.querySelector(
+      ".product-detail"
+    );
 
-    productSection.innerHTML = `
-      <h3>${product.Brand.Name}</h3>
-
-      <h2 class="divider">
-        ${product.NameWithoutBrand}
-      </h2>
+  productSection.innerHTML = `
+  
+    <div class="product-detail__top">
 
       <img
-        class="divider"
+        class="product-detail__image"
         src="${product.Image}"
         alt="${product.NameWithoutBrand}"
       />
 
-      <p class="product-card__price">
-        $${product.FinalPrice}
-      </p>
+      <div class="product-detail__info">
 
-      <p class="product__color">
-        ${product.Colors[0].ColorName}
-      </p>
+        <img
+          class="product-brand__logo"
+          src="${product.Brand.LogoSrc}"
+          alt="${product.Brand.Name}"
+        />
 
-      <p class="product__description">
-        ${product.DescriptionHtmlSimple}
-      </p>
+        <h3>
+          ${product.Brand.Name}
+        </h3>
 
-      <div class="product-detail__add">
-        <button
-          id="addToCart"
-          data-id="${product.Id}"
-        >
-          Add to Cart
-        </button>
+        <h2 class="divider">
+          ${product.NameWithoutBrand}
+        </h2>
+
+        <p class="product-id">
+          Product ID:
+          ${product.Id}
+        </p>
+
+        <div class="product-pricing">
+
+          <p class="product-card__price">
+            $${product.FinalPrice}
+          </p>
+
+          <p class="product-list-price">
+            List Price:
+            <span>
+              $${product.ListPrice}
+            </span>
+          </p>
+
+          <p class="product-suggested-price">
+            Suggested Retail:
+            <span>
+              $${product.SuggestedRetailPrice}
+            </span>
+          </p>
+
+        </div>
+
+        <div class="product-colors">
+
+          <h4>Available Colors</h4>
+
+          ${product.Colors.map(
+            (color) => `
+              <p>
+                ${color.ColorName}
+              </p>
+            `
+          ).join("")}
+
+        </div>
+
+        <div class="product-sizes">
+
+          <h4>Sizes Available</h4>
+
+          <p>
+            ${
+              Object.keys(
+                product.SizesAvailable
+              ).length > 0
+                ? Object.keys(
+                    product.SizesAvailable
+                  ).join(", ")
+                : "Standard Size"
+            }
+          </p>
+
+        </div>
+
+        <p class="product__description">
+          ${product.DescriptionHtmlSimple}
+        </p>
+
+        <div class="product-detail__add">
+
+          <button
+            id="addToCart"
+            data-id="${product.Id}"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
       </div>
-    `;
-  }
+
+    </div>
+  `;
+}
 }
