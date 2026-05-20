@@ -260,6 +260,11 @@ button {
   font-weight: bold;
 }
 
+.alert-list p {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
