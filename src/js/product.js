@@ -10,11 +10,6 @@ import ProductDetails from "./ProductDetails.mjs";
 const productId =
   getParam("product");
 
-console.log(
-  "PRODUCT ID:",
-  productId
-);
-
 const dataSource =
   new ProductData("tents");
 
@@ -24,9 +19,27 @@ const product =
     dataSource
   );
 
-product.init();
+// INIT PAGE
+async function init() {
+  await product.init();
 
-// ADD TO CART
+  // WAIT until button exists
+  const addButton =
+    document.getElementById(
+      "addToCart"
+    );
+
+  if (addButton) {
+    addButton.addEventListener(
+      "click",
+      addToCartHandler
+    );
+  }
+}
+
+init();
+
+// ADD PRODUCT TO STORAGE
 function addProductToCart(product) {
   setLocalStorage(
     "so-cart",
@@ -37,24 +50,24 @@ function addProductToCart(product) {
 // BUTTON HANDLER
 async function addToCartHandler(e) {
   const id =
-    e.currentTarget.dataset.id;
+    e.target.dataset.id;
 
   console.log(
     "BUTTON ID:",
     id
   );
 
-  const product =
+  const foundProduct =
     await dataSource.findProductById(
       id
     );
 
   console.log(
     "FOUND PRODUCT:",
-    product
+    foundProduct
   );
 
-  if (!product) {
+  if (!foundProduct) {
     console.error(
       "Product not found"
     );
@@ -62,25 +75,14 @@ async function addToCartHandler(e) {
     return;
   }
 
-  addProductToCart(product);
+  addProductToCart(foundProduct);
 
   console.log(
-    "LOCAL STORAGE:",
+    "CART:",
     localStorage.getItem(
       "so-cart"
     )
   );
-}
 
-// IMPORTANT
-document.addEventListener(
-  "click",
-  (e) => {
-    if (
-      e.target &&
-      e.target.id === "addToCart"
-    ) {
-      addToCartHandler(e);
-    }
-  }
-);
+  alert("Product added to cart!");
+}

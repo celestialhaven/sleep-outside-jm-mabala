@@ -224,7 +224,7 @@ button {
 .cart-card .card__name {
   grid-row: 1;
   grid-column: 2;
-}
+} 
 
 .cart-card__color {
   grid-row: 2;
@@ -409,6 +409,28 @@ button {
 .product-detail__add button:hover {
   background: #444;
   transform: translateY(-2px);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .product-detail__top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .product-detail {
+    padding: 1rem;
+  }
+
+  .product-detail h2 {
+    font-size: 1.8rem;
+  }
+
+  .product-card__price {
+    font-size: 1.6rem;
+  }
 }
 
 @media screen and (min-width: 500px) {
