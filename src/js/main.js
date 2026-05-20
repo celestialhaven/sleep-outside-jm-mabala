@@ -1,6 +1,7 @@
 import Alert from "./Alert.js";
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
+import { getLocalStorage } from "./utils.mjs";
 
 const alert = new Alert();
 
@@ -19,5 +20,37 @@ const myList = new ProductList(
   dataSource,
   listElement
 );
+
+function updateCartCount() {
+
+  const cartItems =
+    getLocalStorage("so-cart") || [];
+
+  const count =
+    cartItems.length;
+
+  const cartCount =
+    document.querySelector(
+      ".cart-count"
+    );
+
+  if (!cartCount) return;
+
+  if (count > 0) {
+
+    cartCount.textContent =
+      count;
+
+    cartCount.style.display =
+      "flex";
+
+  } else {
+
+    cartCount.style.display =
+      "none";
+  }
+}
+
+updateCartCount();
 
 myList.init();

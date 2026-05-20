@@ -19,11 +19,46 @@ const product =
     dataSource
   );
 
+// UPDATE CART BADGE
+function updateCartCount() {
+  const cartItems =
+    JSON.parse(
+      localStorage.getItem(
+        "so-cart"
+      )
+    ) || [];
+
+  const cartCount =
+    document.querySelector(
+      ".cart-count"
+    );
+
+  if (!cartCount) return;
+
+  const totalItems =
+    cartItems.length;
+
+  cartCount.textContent =
+    totalItems;
+
+  // SHOW ONLY IF 1+
+  if (totalItems > 0) {
+    cartCount.style.display =
+      "flex";
+  } else {
+    cartCount.style.display =
+      "none";
+  }
+}
+
 // INIT PAGE
 async function init() {
   await product.init();
 
-  // WAIT until button exists
+  // UPDATE BADGE ON PAGE LOAD
+  updateCartCount();
+
+  // WAIT UNTIL BUTTON EXISTS
   const addButton =
     document.getElementById(
       "addToCart"
@@ -40,15 +75,22 @@ async function init() {
 init();
 
 // ADD PRODUCT TO STORAGE
-function addProductToCart(product) {
+function addProductToCart(
+  product
+) {
   setLocalStorage(
     "so-cart",
     product
   );
+
+  // REFRESH BADGE
+  updateCartCount();
 }
 
 // BUTTON HANDLER
-async function addToCartHandler(e) {
+async function addToCartHandler(
+  e
+) {
   const id =
     e.target.dataset.id;
 
@@ -75,7 +117,9 @@ async function addToCartHandler(e) {
     return;
   }
 
-  addProductToCart(foundProduct);
+  addProductToCart(
+    foundProduct
+  );
 
   console.log(
     "CART:",
@@ -84,5 +128,7 @@ async function addToCartHandler(e) {
     )
   );
 
-  alert("Product added to cart!");
+  alert(
+    "Product added to cart!"
+  );
 }

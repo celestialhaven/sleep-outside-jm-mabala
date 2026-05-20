@@ -1,6 +1,37 @@
 import { getLocalStorage } from "./utils.mjs";
 
+function updateCartCount() {
+
+  const cartItems =
+    getLocalStorage("so-cart") || [];
+
+  const count =
+    cartItems.length;
+
+  const cartCount =
+    document.querySelector(
+      ".cart-count"
+    );
+
+  if (!cartCount) return;
+
+  if (count > 0) {
+
+    cartCount.textContent =
+      count;
+
+    cartCount.style.display =
+      "flex";
+
+  } else {
+
+    cartCount.style.display =
+      "none";
+  }
+}
+
 function renderCartContents() {
+
   const cartItems =
     getLocalStorage("so-cart") || [];
 
@@ -30,6 +61,7 @@ function renderCartContents() {
 
   // empty cart
   if (!validItems.length) {
+
     productList.innerHTML = `
       <li class="empty-cart">
         Your cart is empty.
@@ -39,6 +71,8 @@ function renderCartContents() {
     cartFooter.classList.add(
       "hide"
     );
+
+    updateCartCount();
 
     return;
   }
@@ -66,11 +100,15 @@ function renderCartContents() {
   cartFooter.classList.remove(
     "hide"
   );
+
+  updateCartCount();
 }
 
 function cartItemTemplate(item) {
+
   return `
     <li class="cart-card divider">
+
       <a href="#" class="cart-card__image">
         <img
           src="${item.Image || ""}"
@@ -96,9 +134,7 @@ function cartItemTemplate(item) {
       </p>
 
       <p class="cart-card__price">
-        $${
-          item.FinalPrice || 0
-        }
+        $${item.FinalPrice || 0}
       </p>
 
       <button
@@ -107,11 +143,13 @@ function cartItemTemplate(item) {
       >
         Remove
       </button>
+
     </li>
   `;
 }
 
 function calculateCartTotal(cartItems) {
+
   const total =
     cartItems.reduce(
       (sum, item) =>
@@ -124,6 +162,7 @@ function calculateCartTotal(cartItems) {
 }
 
 function removeFromCart(id) {
+
   let cartItems =
     getLocalStorage("so-cart");
 
@@ -148,11 +187,13 @@ function removeFromCart(id) {
 document.addEventListener(
   "click",
   (e) => {
+
     if (
       e.target.classList.contains(
         "remove-item"
       )
     ) {
+
       const id =
         e.target.dataset.id;
 

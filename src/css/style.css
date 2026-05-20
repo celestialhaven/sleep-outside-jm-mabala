@@ -452,6 +452,51 @@ button {
   font-size: 1.1rem;
 }
 
+
+/* SUPER SCRIPT */
+
+.cart {
+  position: relative;
+}
+
+.cart a {
+  position: relative;
+  display: inline-block;
+}
+
+.cart svg {
+  width: 40px;
+  height: 40px;
+}
+
+.cart-count {
+  position: absolute;
+
+  top: -6px;
+  right: -8px;
+
+  background: red;
+  color: white;
+
+  min-width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 5px;
+
+  font-size: 0.75rem;
+  font-weight: bold;
+
+  line-height: 1;
+
+  z-index: 10;
+}
+
 /* MOBILE */
 
 @media (max-width: 768px) {
