@@ -1,25 +1,64 @@
-import { setLocalStorage } from "./utils.mjs";
+import {
+  getParam,
+  setLocalStorage
+} from "./utils.mjs";
+
 import ProductData from "./ProductData.mjs";
 
-const dataSource = new ProductData("tents");
+import ProductDetails from "./ProductDetails.mjs";
 
+const productId =
+  getParam("product");
+
+console.log(
+  "PRODUCT ID:",
+  productId
+);
+
+const dataSource =
+  new ProductData("tents");
+
+const product =
+  new ProductDetails(
+    productId,
+    dataSource
+  );
+
+product.init();
+
+// ADD TO CART
 function addProductToCart(product) {
-  setLocalStorage("so-cart", product);
+  setLocalStorage(
+    "so-cart",
+    product
+  );
 }
 
-// add to cart button event handler
+// BUTTON HANDLER
 async function addToCartHandler(e) {
-  const id = e.currentTarget.dataset.id;
+  const id =
+    e.currentTarget.dataset.id;
 
-  console.log("BUTTON ID:", id);
+  console.log(
+    "BUTTON ID:",
+    id
+  );
 
   const product =
-    await dataSource.findProductById(id);
+    await dataSource.findProductById(
+      id
+    );
 
-  console.log("FOUND PRODUCT:", product);
+  console.log(
+    "FOUND PRODUCT:",
+    product
+  );
 
   if (!product) {
-    console.error("Product not found");
+    console.error(
+      "Product not found"
+    );
+
     return;
   }
 
@@ -27,17 +66,21 @@ async function addToCartHandler(e) {
 
   console.log(
     "LOCAL STORAGE:",
-    localStorage.getItem("so-cart")
+    localStorage.getItem(
+      "so-cart"
+    )
   );
 }
 
-// add listener to Add to Cart button
-const addButton =
-  document.getElementById("addToCart");
-
-if (addButton) {
-  addButton.addEventListener(
-    "click",
-    addToCartHandler
-  );
-}
+// IMPORTANT
+document.addEventListener(
+  "click",
+  (e) => {
+    if (
+      e.target &&
+      e.target.id === "addToCart"
+    ) {
+      addToCartHandler(e);
+    }
+  }
+);

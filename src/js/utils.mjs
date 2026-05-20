@@ -64,3 +64,10 @@ export function setClick(
     callback
   );
 }
+
+export function getParam(param) {
+  const url =
+    new URL(window.location);
+
+  return url.searchParams.get(param);
+}
