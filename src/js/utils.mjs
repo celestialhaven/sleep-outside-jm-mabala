@@ -1,24 +1,44 @@
 // wrapper for querySelector
-export function qs(selector, parent = document) {
-  return parent.querySelector(selector);
+export function qs(
+  selector,
+  parent = document
+) {
+  return parent.querySelector(
+    selector
+  );
 }
 
 // retrieve data from localstorage
-export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key)) || [];
+export function getLocalStorage(
+  key
+) {
+  return (
+    JSON.parse(
+      localStorage.getItem(key)
+    ) || []
+  );
 }
 
 // save data to local storage
-export function setLocalStorage(key, data) {
+export function setLocalStorage(
+  key,
+  data
+) {
   let currentData =
     getLocalStorage(key);
 
-  // if old data is object, convert to array
-  if (!Array.isArray(currentData)) {
+  if (
+    !Array.isArray(currentData)
+  ) {
     currentData = [];
   }
 
-  currentData.push(data);
+  // flatten nested arrays
+  if (Array.isArray(data)) {
+    currentData.push(...data);
+  } else {
+    currentData.push(data);
+  }
 
   localStorage.setItem(
     key,
