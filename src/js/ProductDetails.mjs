@@ -56,13 +56,6 @@ export default class ProductDetails {
             $${product.FinalPrice}
           </p>
 
-          <p class="product-list-price">
-            List Price:
-            <span>
-              $${product.ListPrice}
-            </span>
-          </p>
-
           <p class="product-suggested-price">
             Suggested Retail:
             <span>
