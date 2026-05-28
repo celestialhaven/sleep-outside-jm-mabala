@@ -497,6 +497,44 @@ button {
   z-index: 10;
 }
 
+/* CATEGORIES */
+
+.categories {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 160px;
+  transition: 0.3s ease;
+}
+
+.category-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.category-item span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.category-item:hover {
+  transform: translateY(-5px);
+}
+
 /* MOBILE */
 
 @media (max-width: 768px) {
