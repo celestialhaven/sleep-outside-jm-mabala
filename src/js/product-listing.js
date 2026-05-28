@@ -13,6 +13,22 @@ alert.render();
 const category =
   getParam("category");
 
+const categoryElement =
+  document.getElementById(
+    "product-category"
+  );
+
+if (categoryElement) {
+
+  categoryElement.textContent =
+    category
+      .replace("-", " ")
+      .replace(/\b\w/g, (char) =>
+        char.toUpperCase()
+      );
+
+}
+
 const dataSource =
   new ProductData(category);
 

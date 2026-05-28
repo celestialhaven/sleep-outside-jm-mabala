@@ -5,12 +5,24 @@ export default class ProductDetails {
   }
 
   async init() {
+
     const product =
       await this.dataSource.findProductById(
         this.productId
       );
 
+    if (!product) {
+
+      document.querySelector(
+        ".product-detail"
+      ).innerHTML =
+        "<p>Product not found.</p>";
+
+      return;
+    }
+
     this.renderProductDetails(product);
+
   }
 
   renderProductDetails(product) {
@@ -25,7 +37,7 @@ export default class ProductDetails {
 
       <img
         class="product-detail__image"
-        src="${product.Image}"
+        src="${product.Images.PrimaryLarge}"
         alt="${product.NameWithoutBrand}"
       />
 
