@@ -7,47 +7,27 @@ const alert = new Alert();
 
 alert.render();
 
-const dataSource =
-  new ProductData("tents");
+const dataSource = new ProductData("tents");
 
-const listElement =
-  document.querySelector(
-    ".product-list"
-  );
+const listElement = document.querySelector(".product-list");
 
-const myList = new ProductList(
-  "tents",
-  dataSource,
-  listElement
-);
+const myList = new ProductList("tents", dataSource, listElement);
 
 function updateCartCount() {
+  const cartItems = getLocalStorage("so-cart") || [];
 
-  const cartItems =
-    getLocalStorage("so-cart") || [];
+  const count = cartItems.length;
 
-  const count =
-    cartItems.length;
-
-  const cartCount =
-    document.querySelector(
-      ".cart-count"
-    );
+  const cartCount = document.querySelector(".cart-count");
 
   if (!cartCount) return;
 
   if (count > 0) {
+    cartCount.textContent = count;
 
-    cartCount.textContent =
-      count;
-
-    cartCount.style.display =
-      "flex";
-
+    cartCount.style.display = "flex";
   } else {
-
-    cartCount.style.display =
-      "none";
+    cartCount.style.display = "none";
   }
 }
 

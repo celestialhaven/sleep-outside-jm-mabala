@@ -224,7 +224,7 @@ button {
 .cart-card .card__name {
   grid-row: 1;
   grid-column: 2;
-} 
+}
 
 .cart-card__color {
   grid-row: 2;
@@ -451,7 +451,6 @@ button {
   font-weight: bold;
   font-size: 1.1rem;
 }
-
 
 /* SUPER SCRIPT */
 

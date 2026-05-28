@@ -1,138 +1,81 @@
-import {
-  getParam,
-  setLocalStorage
-} from "./utils.mjs";
+import { getParam, setLocalStorage, loadHeaderFooter } from "./utils.mjs";
 
 import ProductData from "./ProductData.mjs";
 
 import ProductDetails from "./ProductDetails.mjs";
 
-import { loadHeaderFooter } from "./utils.mjs";
-
 loadHeaderFooter();
 
-const productId =
-  getParam("product");
+const productId = getParam("product");
 
-const dataSource =
-  new ProductData("tents");
+const dataSource = new ProductData("tents");
 
-const product =
-  new ProductDetails(
-    productId,
-    dataSource
-  );
+const productDetails = new ProductDetails(productId, dataSource);
 
 // UPDATE CART BADGE
 function updateCartCount() {
-  const cartItems =
-    JSON.parse(
-      localStorage.getItem(
-        "so-cart"
-      )
-    ) || [];
+  const cartItems = JSON.parse(localStorage.getItem("so-cart")) || [];
 
-  const cartCount =
-    document.querySelector(
-      ".cart-count"
-    );
+  const cartCount = document.querySelector(".cart-count");
 
   if (!cartCount) return;
 
-  const totalItems =
-    cartItems.length;
+  const totalItems = cartItems.length;
 
-  cartCount.textContent =
-    totalItems;
+  cartCount.textContent = totalItems;
 
   // SHOW ONLY IF 1+
   if (totalItems > 0) {
-    cartCount.style.display =
-      "flex";
+    cartCount.style.display = "flex";
   } else {
-    cartCount.style.display =
-      "none";
+    cartCount.style.display = "none";
   }
 }
 
 // INIT PAGE
 async function init() {
-  await product.init();
+  await productDetails.init();
 
   // UPDATE BADGE ON PAGE LOAD
   updateCartCount();
 
   // WAIT UNTIL BUTTON EXISTS
-  const addButton =
-    document.getElementById(
-      "addToCart"
-    );
+  const addButton = document.getElementById("addToCart");
 
   if (addButton) {
-    addButton.addEventListener(
-      "click",
-      addToCartHandler
-    );
+    addButton.addEventListener("click", addToCartHandler);
   }
 }
 
 init();
 
 // ADD PRODUCT TO STORAGE
-function addProductToCart(
-  product
-) {
-  setLocalStorage(
-    "so-cart",
-    product
-  );
+function addProductToCart(cartProduct) {
+  setLocalStorage("so-cart", cartProduct);
 
   // REFRESH BADGE
   updateCartCount();
 }
 
 // BUTTON HANDLER
-async function addToCartHandler(
-  e
-) {
-  const id =
-    e.target.dataset.id;
+async function addToCartHandler(e) {
+  const id = e.target.dataset.id;
 
-  console.log(
-    "BUTTON ID:",
-    id
-  );
+  console.log("BUTTON ID:", id);
 
-  const foundProduct =
-    await dataSource.findProductById(
-      id
-    );
+  const foundProduct = await dataSource.findProductById(id);
 
-  console.log(
-    "FOUND PRODUCT:",
-    foundProduct
-  );
+  console.log("FOUND PRODUCT:", foundProduct);
 
   if (!foundProduct) {
-    console.error(
-      "Product not found"
-    );
+    console.error("Product not found");
 
     return;
   }
 
-  addProductToCart(
-    foundProduct
-  );
+  addProductToCart(foundProduct);
 
-  console.log(
-    "CART:",
-    localStorage.getItem(
-      "so-cart"
-    )
-  );
+  console.log("CART:", localStorage.getItem("so-cart"));
 
-  alert(
-    "Product added to cart!"
-  );
+  alert("Product added to cart!");
 }

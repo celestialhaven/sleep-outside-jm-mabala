@@ -10,22 +10,17 @@ export default class Alert {
     if (!this.alerts.length) return;
 
     // create section
-    const alertSection =
-      document.createElement("section");
+    const alertSection = document.createElement("section");
 
-    alertSection.classList.add(
-      "alert-list"
-    );
+    alertSection.classList.add("alert-list");
 
     // loop through alerts
     this.alerts.forEach((alert) => {
-      const p =
-        document.createElement("p");
+      const p = document.createElement("p");
 
       p.textContent = alert.message;
 
-      p.style.backgroundColor =
-        alert.background;
+      p.style.backgroundColor = alert.background;
 
       p.style.color = alert.color;
 
@@ -37,8 +32,7 @@ export default class Alert {
     });
 
     // prepend to main
-    const main =
-      document.querySelector("main");
+    const main = document.querySelector("main");
 
     main.prepend(alertSection);
   }
