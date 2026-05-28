@@ -1,7 +1,11 @@
 import Alert from "./Alert.js";
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { getLocalStorage } from "./utils.mjs";
+
+import {
+  getLocalStorage,
+  loadHeaderFooter
+} from "./utils.mjs";
 
 const alert = new Alert();
 
@@ -51,6 +55,13 @@ function updateCartCount() {
   }
 }
 
-updateCartCount();
+async function init() {
 
-myList.init();
+  await loadHeaderFooter();
+
+  updateCartCount();
+
+  myList.init();
+}
+
+init();

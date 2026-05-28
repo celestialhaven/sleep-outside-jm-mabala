@@ -71,3 +71,65 @@ export function getParam(param) {
 
   return url.searchParams.get(param);
 }
+
+export async function loadTemplate(path) {
+  const response = await fetch(path);
+  const template = await response.text();
+  return template;
+}
+
+export function renderWithTemplate(
+  template,
+  parentElement,
+  position = "afterbegin",
+  callback
+) {
+  parentElement.insertAdjacentHTML(position, template);
+
+  if (callback) {
+    callback();
+  }
+}
+
+export async function loadHeaderFooter() {
+
+  try {
+
+    const header =
+      await loadTemplate(
+        "/partials/header.html"
+      );
+
+    const footer =
+      await loadTemplate(
+        "/partials/footer.html"
+      );
+
+    const headerElement =
+      document.querySelector(
+        "#main-header"
+      );
+
+    const footerElement =
+      document.querySelector(
+        "#main-footer"
+      );
+
+    renderWithTemplate(
+      header,
+      headerElement
+    );
+
+    renderWithTemplate(
+      footer,
+      footerElement
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Header/Footer Error:",
+      error
+    );
+  }
+}
