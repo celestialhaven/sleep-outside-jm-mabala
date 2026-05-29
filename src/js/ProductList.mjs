@@ -15,21 +15,99 @@ export default class ProductList {
     this.listElement =
       listElement;
 
+    this.products = [];
+
   }
 
   async init() {
 
-    const products =
+    this.products =
       await this.dataSource.getData(
         this.category
       );
 
     this.renderList(
-      products
+      this.products
     );
 
     this.renderBreadcrumb(
-      products.length
+      this.products.length
+    );
+
+    this.initSorting();
+
+  }
+
+  initSorting() {
+
+    const sortSelect =
+      document.querySelector(
+        "#sortProducts"
+      );
+
+    if (!sortSelect) return;
+
+    sortSelect.addEventListener(
+      "change",
+      (e) => {
+
+        const value =
+          e.target.value;
+
+        const sorted =
+          [...this.products];
+
+        switch (value) {
+
+          case "name-asc":
+
+            sorted.sort(
+              (a, b) =>
+                a.NameWithoutBrand.localeCompare(
+                  b.NameWithoutBrand
+                )
+            );
+
+            break;
+
+          case "name-desc":
+
+            sorted.sort(
+              (a, b) =>
+                b.NameWithoutBrand.localeCompare(
+                  a.NameWithoutBrand
+                )
+            );
+
+            break;
+
+          case "price-low":
+
+            sorted.sort(
+              (a, b) =>
+                a.FinalPrice -
+                b.FinalPrice
+            );
+
+            break;
+
+          case "price-high":
+
+            sorted.sort(
+              (a, b) =>
+                b.FinalPrice -
+                a.FinalPrice
+            );
+
+            break;
+
+        }
+
+        this.renderList(
+          sorted
+        );
+
+      }
     );
 
   }
@@ -47,9 +125,14 @@ export default class ProductList {
 
     const categoryName =
       this.category
-        .charAt(0)
-        .toUpperCase() +
-      this.category.slice(1);
+        .split("-")
+        .map(
+          (word) =>
+            word.charAt(0)
+              .toUpperCase() +
+            word.slice(1)
+        )
+        .join(" ");
 
     breadcrumb.innerHTML = `
       <strong>

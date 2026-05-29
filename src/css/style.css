@@ -605,6 +605,24 @@ button {
   }
 }
 
+/* PRODUCT SORTING */
+
+.products-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+}
+
+.products-toolbar select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
 /* MOBILE */
 
 @media (max-width: 768px) {
