@@ -9,12 +9,18 @@ alert.render();
 
 const category = getParam("category");
 
+const search = getParam("search");
+
 const categoryElement = document.getElementById("product-category");
 
 if (categoryElement) {
-  categoryElement.textContent = category
-    .replace("-", " ")
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+  if (search) {
+    categoryElement.textContent = `Search Results: ${search}`;
+  } else {
+    categoryElement.textContent = category
+      .replace("-", " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  }
 }
 
 const dataSource = new ProductData(category);
@@ -46,7 +52,15 @@ async function init() {
 
   updateCartCount();
 
-  await myList.init();
+  if (search) {
+    categoryElement.textContent = `Search Results: ${search}`;
+
+    const products = await dataSource.searchProducts(search);
+
+    myList.renderList(products);
+  } else {
+    await myList.init();
+  }
 }
 
 init();

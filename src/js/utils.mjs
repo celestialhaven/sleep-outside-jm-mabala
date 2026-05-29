@@ -125,6 +125,9 @@ export async function loadHeaderFooter() {
       footerElement
     );
 
+    // ADD THIS
+    initSearch();
+
   } catch (error) {
 
     console.error(
@@ -132,4 +135,34 @@ export async function loadHeaderFooter() {
       error
     );
   }
+}
+
+export function initSearch() {
+
+  const form =
+    document.querySelector(
+      ".product-search"
+    );
+
+  if (!form) return;
+
+  form.addEventListener(
+    "submit",
+    (e) => {
+
+      e.preventDefault();
+
+      const query =
+        document
+          .getElementById(
+            "searchInput"
+          )
+          .value.trim();
+
+      if (!query) return;
+
+      window.location.href =
+        `/product_listing/index.html?search=${encodeURIComponent(query)}`;
+    }
+  );
 }

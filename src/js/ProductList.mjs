@@ -75,7 +75,7 @@ export default class ProductList {
             : ""
         }
 
-        <a href="../product_pages/index.html?category=${this.category}&product=${product.Id}">
+        <a href="../product_pages/index.html?category=${product.Category || this.category}&product=${product.Id}">
           
           <img
             src="${product.Images.PrimaryMedium}"

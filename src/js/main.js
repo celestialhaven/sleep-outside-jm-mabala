@@ -2,7 +2,7 @@ import Alert from "./Alert.js";
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 
-import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
+import { getLocalStorage, loadHeaderFooter, initSearch } from "./utils.mjs";
 
 const alert = new Alert();
 
@@ -34,6 +34,8 @@ function updateCartCount() {
 
 async function init() {
   await loadHeaderFooter();
+
+  initSearch();
 
   updateCartCount();
 
