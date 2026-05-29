@@ -125,9 +125,6 @@ export async function loadHeaderFooter() {
       footerElement
     );
 
-    // ADD THIS
-    initSearch();
-
   } catch (error) {
 
     console.error(

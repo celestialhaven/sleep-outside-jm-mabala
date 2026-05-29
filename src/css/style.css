@@ -534,6 +534,63 @@ button {
   transform: translateY(-5px);
 }
 
+/* PRODUCT SEARCH */
+
+.product-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+#searchInput {
+  width: 250px;
+  max-width: 100%;
+  height: 48px;
+  padding: 0 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+  border-color: #0077cc;
+  box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.15);
+}
+
+.product-search button {
+  height: 48px;
+  padding: 0 1.25rem;
+  margin: 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #0077cc;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-search button:hover {
+  background-color: #005fa3;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .product-search {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #searchInput,
+  .product-search button {
+    width: 100%;
+  }
+}
+
 /* MOBILE */
 
 @media (max-width: 768px) {
