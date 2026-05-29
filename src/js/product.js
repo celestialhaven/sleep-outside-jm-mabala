@@ -6,15 +6,12 @@ import ProductDetails from "./ProductDetails.mjs";
 
 const productId = getParam("product");
 
-const category =
-  getParam("category");
+const category = getParam("category");
 
 console.log("CATEGORY:", category);
 console.log("PRODUCT ID:", productId);
 
-
-const dataSource =
-  new ProductData(category);
+const dataSource = new ProductData(category);
 
 const productDetails = new ProductDetails(productId, dataSource);
 
@@ -40,23 +37,16 @@ function updateCartCount() {
 
 // INIT PAGE
 async function init() {
-
   await loadHeaderFooter();
 
   await productDetails.init();
 
   updateCartCount();
 
-  const addButton =
-    document.getElementById(
-      "addToCart"
-    );
+  const addButton = document.getElementById("addToCart");
 
   if (addButton) {
-    addButton.addEventListener(
-      "click",
-      addToCartHandler
-    );
+    addButton.addEventListener("click", addToCartHandler);
   }
 }
 
