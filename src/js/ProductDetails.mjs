@@ -1,7 +1,16 @@
 export default class ProductDetails {
-  constructor(productId, dataSource) {
-    this.productId = productId;
-    this.dataSource = dataSource;
+
+  constructor(
+    productId,
+    dataSource
+  ) {
+
+    this.productId =
+      productId;
+
+    this.dataSource =
+      dataSource;
+
   }
 
   async init() {
@@ -19,114 +28,156 @@ export default class ProductDetails {
         "<p>Product not found.</p>";
 
       return;
+
     }
 
-    this.renderProductDetails(product);
+    this.renderBreadcrumb();
+
+    this.renderProductDetails(
+      product
+    );
 
   }
 
-  renderProductDetails(product) {
-  const productSection =
-    document.querySelector(
-      ".product-detail"
-    );
+  renderBreadcrumb() {
 
-  productSection.innerHTML = `
-  
-    <div class="product-detail__top">
+    const breadcrumb =
+      document.querySelector(
+        ".breadcrumb"
+      );
 
-      <img
-        class="product-detail__image"
-        src="${product.Images.PrimaryLarge}"
-        alt="${product.NameWithoutBrand}"
-      />
+    if (!breadcrumb) return;
 
-      <div class="product-detail__info">
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const category =
+      params.get(
+        "category"
+      );
+
+    breadcrumb.innerHTML = `
+      <strong>
+        ${category || "Products"}
+      </strong>
+    `;
+
+  }
+
+  renderProductDetails(
+    product
+  ) {
+
+    const productSection =
+      document.querySelector(
+        ".product-detail"
+      );
+
+    productSection.innerHTML = `
+
+      <div class="product-detail__top">
 
         <img
-          class="product-brand__logo"
-          src="${product.Brand.LogoSrc}"
-          alt="${product.Brand.Name}"
+          class="product-detail__image"
+          src="${product.Images.PrimaryLarge}"
+          alt="${product.NameWithoutBrand}"
         />
 
-        <h3>
-          ${product.Brand.Name}
-        </h3>
+        <div class="product-detail__info">
 
-        <h2 class="divider">
-          ${product.NameWithoutBrand}
-        </h2>
+          <img
+            class="product-brand__logo"
+            src="${product.Brand.LogoSrc}"
+            alt="${product.Brand.Name}"
+          />
 
-        <p class="product-id">
-          Product ID:
-          ${product.Id}
-        </p>
+          <h3>
+            ${product.Brand.Name}
+          </h3>
 
-        <div class="product-pricing">
+          <h2 class="divider">
+            ${product.NameWithoutBrand}
+          </h2>
 
-          <p class="product-card__price">
-            $${product.FinalPrice}
+          <p class="product-id">
+            Product ID:
+            ${product.Id}
           </p>
 
-          <p class="product-suggested-price">
-            Suggested Retail:
-            <span>
-              $${product.SuggestedRetailPrice}
-            </span>
+          <div class="product-pricing">
+
+            <p class="product-card__price">
+              $${product.FinalPrice}
+            </p>
+
+            <p class="product-suggested-price">
+              Suggested Retail:
+              <span>
+                $${product.SuggestedRetailPrice}
+              </span>
+            </p>
+
+          </div>
+
+          <div class="product-colors">
+
+            <h4>
+              Available Colors
+            </h4>
+
+            ${product.Colors.map(
+              (color) => `
+                <p>
+                  ${color.ColorName}
+                </p>
+              `
+            ).join("")}
+
+          </div>
+
+          <div class="product-sizes">
+
+            <h4>
+              Sizes Available
+            </h4>
+
+            <p>
+              ${
+                Object.keys(
+                  product.SizesAvailable
+                ).length > 0
+                  ? Object.keys(
+                      product.SizesAvailable
+                    ).join(", ")
+                  : "Standard Size"
+              }
+            </p>
+
+          </div>
+
+          <p class="product__description">
+            ${product.DescriptionHtmlSimple}
           </p>
 
-        </div>
+          <div class="product-detail__add">
 
-        <div class="product-colors">
+            <button
+              id="addToCart"
+              data-id="${product.Id}"
+            >
+              Add to Cart
+            </button>
 
-          <h4>Available Colors</h4>
-
-          ${product.Colors.map(
-            (color) => `
-              <p>
-                ${color.ColorName}
-              </p>
-            `
-          ).join("")}
-
-        </div>
-
-        <div class="product-sizes">
-
-          <h4>Sizes Available</h4>
-
-          <p>
-            ${
-              Object.keys(
-                product.SizesAvailable
-              ).length > 0
-                ? Object.keys(
-                    product.SizesAvailable
-                  ).join(", ")
-                : "Standard Size"
-            }
-          </p>
-
-        </div>
-
-        <p class="product__description">
-          ${product.DescriptionHtmlSimple}
-        </p>
-
-        <div class="product-detail__add">
-
-          <button
-            id="addToCart"
-            data-id="${product.Id}"
-          >
-            Add to Cart
-          </button>
+          </div>
 
         </div>
 
       </div>
 
-    </div>
-  `;
-}
+    `;
+
+  }
+
 }

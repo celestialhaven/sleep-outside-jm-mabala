@@ -163,3 +163,17 @@ export function initSearch() {
     }
   );
 }
+
+export function renderBreadcrumb(
+  text
+) {
+  const breadcrumb =
+    document.querySelector(
+      ".breadcrumb"
+    );
+
+  if (!breadcrumb) return;
+
+  breadcrumb.innerHTML =
+    text;
+}

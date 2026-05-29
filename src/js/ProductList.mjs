@@ -24,23 +24,63 @@ export default class ProductList {
         this.category
       );
 
-    this.renderList(products);
+    this.renderList(
+      products
+    );
+
+    this.renderBreadcrumb(
+      products.length
+    );
 
   }
 
-  renderList(products) {
+  renderBreadcrumb(
+    count
+  ) {
 
-    const html = products.map(
-      (product) =>
-        this.productTemplate(product)
-    );
+    const breadcrumb =
+      document.querySelector(
+        ".breadcrumb"
+      );
+
+    if (!breadcrumb) return;
+
+    const categoryName =
+      this.category
+        .charAt(0)
+        .toUpperCase() +
+      this.category.slice(1);
+
+    breadcrumb.innerHTML = `
+      <strong>
+        ${categoryName}
+      </strong>
+      →
+      (${count} items)
+    `;
+
+  }
+
+  renderList(
+    products
+  ) {
+
+    const html =
+      products.map(
+        (product) =>
+          this.productTemplate(
+            product
+          )
+      );
 
     this.listElement.innerHTML =
       html.join("");
 
   }
 
-  productTemplate(product) {
+  productTemplate(
+    product
+  ) {
 
     const isDiscounted =
       product.FinalPrice <
@@ -50,15 +90,16 @@ export default class ProductList {
 
     if (isDiscounted) {
 
-      discountPercent = Math.round(
-        (
+      discountPercent =
+        Math.round(
           (
-            product.SuggestedRetailPrice -
-            product.FinalPrice
-          ) /
-          product.SuggestedRetailPrice
-        ) * 100
-      );
+            (
+              product.SuggestedRetailPrice -
+              product.FinalPrice
+            ) /
+            product.SuggestedRetailPrice
+          ) * 100
+        );
 
     }
 
@@ -75,11 +116,13 @@ export default class ProductList {
             : ""
         }
 
-        <a href="../product_pages/index.html?category=${product.Category || this.category}&product=${product.Id}">
-          
+        <a
+          href="../product_pages/index.html?category=${this.category}&product=${product.Id}"
+        >
+
           <img
             src="${product.Images.PrimaryMedium}"
-            alt="${product.Name}"
+            alt="${product.NameWithoutBrand}"
           />
 
           <h3 class="card__brand">
@@ -109,7 +152,10 @@ export default class ProductList {
           </div>
 
         </a>
+
       </li>
     `;
+
   }
+
 }
