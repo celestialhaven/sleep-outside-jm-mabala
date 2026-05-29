@@ -1,7 +1,14 @@
 import { getLocalStorage } from "./utils.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 
-loadHeaderFooter();
+async function init() {
+
+  await loadHeaderFooter();
+
+  renderCartContents();
+}
+
+init();
 
 function updateCartCount() {
 
@@ -114,7 +121,7 @@ function cartItemTemplate(item) {
 
       <a href="#" class="cart-card__image">
         <img
-          src="${item.Image || ""}"
+          src="${item.Images.PrimaryLarge || ""}"
           alt="${item.Name || ""}"
         />
       </a>

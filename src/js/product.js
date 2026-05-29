@@ -40,16 +40,23 @@ function updateCartCount() {
 
 // INIT PAGE
 async function init() {
+
+  await loadHeaderFooter();
+
   await productDetails.init();
 
-  // UPDATE BADGE ON PAGE LOAD
   updateCartCount();
 
-  // WAIT UNTIL BUTTON EXISTS
-  const addButton = document.getElementById("addToCart");
+  const addButton =
+    document.getElementById(
+      "addToCart"
+    );
 
   if (addButton) {
-    addButton.addEventListener("click", addToCartHandler);
+    addButton.addEventListener(
+      "click",
+      addToCartHandler
+    );
   }
 }
 
