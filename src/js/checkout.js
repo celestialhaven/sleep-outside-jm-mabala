@@ -3,7 +3,7 @@ import {
   getLocalStorage
 } from "./utils.mjs";
 
-import CheckoutProcess from "./checkoutProcess.mjs";
+import CheckoutProcess from "./CheckoutProcess.mjs";
 
 function updateCartCount() {
   const cartItems =
